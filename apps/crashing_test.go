@@ -42,7 +42,7 @@ var _ = Describe("Crashing", func() {
 	It("shows crash events and recovers from crashes", func() {
 		Expect(cf.Cf("push", appName, "--no-start", "-b", config.RubyBuildpackName, "-m", DEFAULT_MEMORY_LIMIT, "-p", assets.NewAssets().Dora, "-d", config.AppsDomain).Wait(DEFAULT_TIMEOUT)).To(Exit(0))
 		app_helpers.SetBackend(appName)
-		Expect(cf.Cf("start", appName).Wait(CF_PUSH_TIMEOUT)).To(Exit(1))
+		Expect(cf.Cf("start", appName).Wait(CF_PUSH_TIMEOUT)).To(Exit(0))
 
 		id := helpers.CurlApp(appName, "/id")
 		helpers.CurlApp(appName, "/sigterm/KILL")
